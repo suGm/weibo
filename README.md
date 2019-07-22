@@ -1,2 +1,0 @@
-# weibo
-weibo study
