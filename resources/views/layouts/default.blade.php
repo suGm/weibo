@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>@yield('title', 'Weibo App')--sugm study</title>
-	<link rel="stylesheet" type="text/css" href="/css/app.css">
 	<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 </head>
 <body>

@@ -1,5 +1,8 @@
-// Bootstrap
+// Bootstrap 将导入node_modules/bootstrap/scss/_alert.scss
 @import '~bootstrap/scss/bootstrap';
+
+//单独导入一个文件
+//@import 'node_modiles/bootstrap/scss/_alert.scss';
 
 body {
 	font-size: 14px;
