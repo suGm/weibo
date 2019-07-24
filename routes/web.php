@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'StaticPagesController@home');
-Route::get('/help', 'StaticPagesController@help');
-Route::get('/about', 'StaticPagesController@about');
+Route::get('/', 'StaticPagesController@home')->name('home');
+Route::get('/help', 'StaticPagesController@help')->name('help');//指定别名,使其可以在blade模板中使用{{ route('help') }}调用
+Route::get('/about', 'StaticPagesController@about')->name('about');
