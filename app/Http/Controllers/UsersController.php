@@ -25,4 +25,27 @@ class UsersController extends Controller
     {
     	return view('users.show', compact('user'));
     }
+
+    /*
+        该方法用于注册
+        需要对用户输入数据进行验证,验证成功后再将数据存入数据库
+        在laravel中,提供了多种数据验证方法
+        这里使用了validator方法来验证数据
+        validator方法接受两个参数,第一个参数为用户的输入数据,第二个参数为该输入数据的验证规则
+        require(存在性验证,验证该字段是否为空)|
+        min(填写字段的最小值)|
+        max(填写字段的最大值)|
+        email(对用户邮箱进行验证)|
+        unique(唯一性验证:users对表users进行该字段唯一性验证)|
+        confirmed(密码匹配验证)|
+    */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:50',
+            'email' => 'required|email|unique:users|max:255',
+            'password' => 'required|confirmed|min:6'
+        ]);
+        return;
+    }
 }
