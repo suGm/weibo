@@ -46,20 +46,6 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
-
-        //注入数据库,并返回一个用户对象
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-
-        //当我们想存入一条缓存的数据,让它只在下一次的请求时有效,则可以使用flash方法
-        //flash方法接受两个参数,第一个为会话的键,第二个为会话的值
-        session()->flash('success', '欢迎,注册成功~');
-
-        //此时$user是User模型对象的实例,route()方法会自动获取Model的主键,也就是数据表users的主键id
-        //该代码等同于 return redirect()->route('users.show', [$user->id]);
-        return redirect()->route('users.show', [$user]);
+        return;
     }
 }
