@@ -31,5 +31,5 @@ Route::resource('users', 'UsersController');//资源路由
 
 Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');
-Route::delete('logout', 'SessionsController@destory')->name('logout');
+Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
