@@ -8,6 +8,17 @@ use Auth;
 
 class UsersController extends Controller
 {	
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
 	//用户注册页面
     public function create()
     {
@@ -59,13 +70,17 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$user]);
     }
 
+    //该方法用于展示身份编辑
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
+    //该方法用于更新个人信息
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'nullable|confirmed|min:6'
