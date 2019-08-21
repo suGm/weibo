@@ -29,4 +29,7 @@ Route::resource('users', 'UsersController');//资源路由
 	Route::delete('/users/{user}', 'UsersController@destory')->name('users.destory');//删除用户
 */
 
+Route::get('login', 'SessionsController@create')->name('login');
+Route::post('login', 'SessionsController@store')->name('login');
+Route::delete('logout', 'SessionsController@destory')->name('logout');
 
