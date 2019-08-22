@@ -144,4 +144,5 @@ class UsersController extends Controller
             $message->to($to)->subject($subject);
         });
     }
+
 }
