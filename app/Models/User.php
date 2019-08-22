@@ -70,4 +70,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Status::class);
     }
+
+    //将该用户发不过去的所有微博从数据库中取出来
+    public function feed()
+    {
+        return $this->statuses()
+                    ->orderBy('created_at', 'desc');
+    }
 }
