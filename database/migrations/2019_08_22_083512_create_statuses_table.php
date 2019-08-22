@@ -14,7 +14,10 @@ class CreateStatusesTable extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->text('content');//存储微博的内容
+            $table->integer('user_id')->index();//用于存储微博发布者的个人id
+            $table->index(['created_at']);
             $table->timestamps();
         });
     }

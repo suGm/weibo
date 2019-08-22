@@ -42,7 +42,10 @@ class UsersController extends Controller
     //如果满足上面两个条件,当请求 http://weibo.test/users/1 并且满足以上两个条件时,Laravel 将会自动查找 ID 为 1 的用户并赋值到变量 $user 中,如果数据库中找不到对应的模型实例,会自动生成 HTTP 404 响应。
     public function show(User $user)
     {
-    	return view('users.show', compact('user'));
+        $statuses = $user->statuses()
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(10);
+    	return view('users.show', compact('user', 'statuses'));
     }
 
     /*
@@ -134,7 +137,7 @@ class UsersController extends Controller
     {
         $view = 'emails.confirm';
         $data = compact('user');
-        $to = '447866679@qq.com';
+        $to = $user->email;
         $subject = '感谢注册 Weibo 应用!请确认你的邮箱。';
 
         Mail::send($view, $data, function($message) use ($to, $subject) {
