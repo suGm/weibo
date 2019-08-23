@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -71,11 +72,15 @@ class User extends Authenticatable
         return $this->hasMany(Status::class);
     }
 
-    //将该用户发不过去的所有微博从数据库中取出来
+    //将该用户发布过的所有微博从数据库中取出来
     public function feed()
     {
-        return $this->statuses()
-                    ->orderBy('created_at', 'desc');
+        //加入关注人的动态数据流
+        $user_ids = $this->followings->pluck('id')->toArray();
+        array_push($user_ids, $this->id);
+        return Status::whereIn('user_id', $user_ids)
+                              ->with('user')
+                              ->orderBy('created_at', 'desc');
     }
 
     //获取粉丝
